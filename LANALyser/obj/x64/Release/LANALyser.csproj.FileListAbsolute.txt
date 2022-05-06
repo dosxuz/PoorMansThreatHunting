@@ -1,0 +1,7 @@
+C:\Users\ritab\Project\LANALyser\bin\x64\Release\LANALyser.exe.config
+C:\Users\ritab\Project\LANALyser\bin\x64\Release\LANALyser.exe
+C:\Users\ritab\Project\LANALyser\bin\x64\Release\LANALyser.pdb
+C:\Users\ritab\Project\LANALyser\obj\x64\Release\LANALyser.csproj.AssemblyReference.cache
+C:\Users\ritab\Project\LANALyser\obj\x64\Release\LANALyser.csproj.CoreCompileInputs.cache
+C:\Users\ritab\Project\LANALyser\obj\x64\Release\LANALyser.exe
+C:\Users\ritab\Project\LANALyser\obj\x64\Release\LANALyser.pdb
