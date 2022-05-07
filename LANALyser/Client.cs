@@ -13,14 +13,14 @@ namespace LANALyser
 {
     public class Client
     {
-        public static void SendTest()
+        public static void SendTest(string IP)
         {
             try
             {
                 TcpClient client = new TcpClient();
                 Console.WriteLine("Connecting...");
 
-                client.Connect("192.168.183.135", 1337);
+                client.Connect(IP, 1337);
                 Console.WriteLine("Connected....");
 
                 string data = "Hello from server\n";
@@ -48,7 +48,7 @@ namespace LANALyser
             }
         }
 
-        public static string SendAdmins(admindetails ad)
+        public static string SendAdmins(admindetails ad, string IP)
         {
             //Convert from admin details to string
             string number = ad.admincount.ToString();
@@ -63,7 +63,7 @@ namespace LANALyser
                 TcpClient client = new TcpClient();
                 Console.WriteLine("Connecting...");
 
-                client.Connect("192.168.183.135", 1337);
+                client.Connect(IP, 1337); //Change me on all the functions
                 Console.WriteLine("Connected....");
 
                 string encodedData = Base64Encode(data);
@@ -91,7 +91,7 @@ namespace LANALyser
             return "Admin counts sent";
         }
 
-        public static string SendCompDetails(compDetail cd)
+        public static string SendCompDetails(compDetail cd, string IP)
         {
             string data = cd.compName + ":" + cd.groupname + cd.ismember.ToString();
             try
@@ -99,7 +99,7 @@ namespace LANALyser
                 TcpClient client = new TcpClient();
                 Console.WriteLine("Connecting...");
 
-                client.Connect("192.168.183.135", 1337);
+                client.Connect(IP, 1337);
                 Console.WriteLine("Connected....");
 
                 string encodedData = Base64Encode(data);
@@ -127,7 +127,7 @@ namespace LANALyser
             return "Computer Account Details Sent";
         }
 
-        public static string SendDomainAdmins(admindetails ad)
+        public static string SendDomainAdmins(admindetails ad, string IP)
         {
             //Convert from admin details to string
             string number = ad.admincount.ToString();
@@ -142,7 +142,7 @@ namespace LANALyser
                 TcpClient client = new TcpClient();
                 Console.WriteLine("Connecting...");
 
-                client.Connect("192.168.183.135", 1337);
+                client.Connect(IP, 1337);
                 Console.WriteLine("Connected....");
 
                 string encodedData = Base64Encode(data);
@@ -170,14 +170,14 @@ namespace LANALyser
             return "Domain Admins Sent";
         }
 
-        public static string SendProblemHelpdeskAdmin(string data)
+        public static string SendProblemHelpdeskAdmin(string data, string IP)
         {
             try
             {
                 TcpClient client = new TcpClient();
                 Console.WriteLine("Connecting...");
 
-                client.Connect("192.168.183.135", 1337);
+                client.Connect(IP, 1337);
                 Console.WriteLine("Connected....");
 
                 string encodedData = Base64Encode(data);
@@ -205,7 +205,7 @@ namespace LANALyser
             return "Problematic helpdesk admin sent";
         }
 
-        public static string SendBadLogins(badlogin[] b)
+        public static string SendBadLogins(badlogin[] b, string IP)
         {
             string data = "";
             if (b[0].sAMAccountName != "empty")
@@ -224,7 +224,7 @@ namespace LANALyser
                 TcpClient client = new TcpClient();
                 Console.WriteLine("Connecting...");
 
-                client.Connect("192.168.183.135", 1337);
+                client.Connect(IP, 1337);
                 Console.WriteLine("Connected....");
 
                 string encodedData = Base64Encode(data);

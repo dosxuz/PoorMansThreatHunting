@@ -1,6 +1,7 @@
 import os
 import base64
 import socket
+from notification import send_notifications
 
 def ReceiveDomainAdmins(s):
     conn, add = s.accept()
@@ -15,8 +16,8 @@ def ReceiveDomainAdmins(s):
 
 def MonitorDomainAdmins(domainAdmins):
     ac = domainAdmins.split(":")[0]
-    if os.path.exists("logs/alerts/domainAdmins") == True:
-        f = open("logs/alerts/domainAdmins","r")
+    if os.path.exists("logs/domainAdmins") == True:
+        f = open("logs/domainAdmins","r")
         for i in f.read().splitlines():
             admincount = i.split(":")[0]
             sAMAccountNames = i.split(":")[1]
@@ -24,10 +25,32 @@ def MonitorDomainAdmins(domainAdmins):
             if admincount != ac:
                 print("[*] HUE HUE New Domain Admin Added")
                 print("New Admin Names : ")
-                for index, i in enumerate(newadmins.split(",")):
-                    if (index == len(newadmins.split(",")) - 1):
+                if os.path.exists("logs/alerts/domainAdmins") == True:
+                    if os.path.getsize("logs/alerts/domainAdmins") == 0:
+
+                        alert = open("logs/alerts/domainAdmins","a")
+                        alert.write("New Domain Admins : ")
+
+                        for index, i in enumerate(newadmins.split(",")):
+                            if (index == len(newadmins.split(",")) - 1):
+                                break
+                            print(i)
+                            alert.write(i+" , ")
+
+                        send_notifications("[*] HUE HUE New Domain Admin Added", (f"Domain Admin Added :technologist:") , "#7e1fd1")
+                        alert.close()
+                else:
+                    alert = open("logs/alerts/domainAdmins","w")
+                    alert.write("New Domain Admins : ")
+
+                    for index, i in enumerate(newadmins.split(",")):
+                        if (index == len(newadmins.split(",")) - 1):
                             break
-                    print(i)
+                        print(i)
+                        alert.write(i+" , ")
+
+                    alert.close()
+                    send_notifications("[*] HUE HUE New Domain Admin Added", (f"Domain Admin Added :technologist:") , "#7e1fd1")
 
             else:
                 print("Current Admin Names ")

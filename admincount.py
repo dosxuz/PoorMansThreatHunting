@@ -1,6 +1,7 @@
 import socket
 import os
 import base64
+from notification import send_notifications
 
 def ReceiveAdmins(s):
     conn, add = s.accept()
@@ -26,16 +27,26 @@ def MonitorAdmins(adminDetails):
                 if os.path.exists("logs/alerts/adminAlerts") == True:
                     if os.path.getsize("logs/alerts/adminAlerts") == 0:
                         alert = open("logs/alerts/adminAlerts","a")
+                        for index, i in enumerate(sAMAccountNames.split(",")):
+                            if (index == len(sAMAccountNames.split(",")) - 1):
+                                break
+                            alert.write("New Admins Added : ")
+                            alert.write(i+",")
+                            print(i)
+                        send_notifications(" HUE HUE Admin Changed!!!!!!", (f"Change in Admin Count :open_mouth:"), "#140f73")
+                        alert.write("\n")
+                        alert.close()
                 else:
                     alert = open("logs/alerts/adminAlerts","w")
-                for index, i in enumerate(sAMAccountNames.split(",")):
-                    if (index == len(sAMAccountNames.split(",")) - 1):
-                        break
-                    alert.write("New Admins Added : ")
-                    alert.write(i+",")
-                    print(i)
-                alert.write("\n")
-                alert.close()
+                    for index, i in enumerate(sAMAccountNames.split(",")):
+                        if (index == len(sAMAccountNames.split(",")) - 1):
+                            break
+                        alert.write("New Admins Added : ")
+                        alert.write(i+",")
+                        print(i)
+                    alert.write("\n")
+                    send_notifications(" HUE HUE Admin Changed!!!!!!", (f"Change in Admin Count :open_mouth:"), "#140f73")
+                    alert.close()
 
             else:
                 print("Current Admin Names")

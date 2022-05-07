@@ -1,6 +1,7 @@
 import base64
 import os
 import socket
+from notification import send_notifications
 
 def ReceiveBadPassDetails(s):
     conn, add = s.accept()
@@ -47,7 +48,7 @@ def MonitorPassSprays(badlogins):
             if (head == remainder):
                 c += 1
 
-        if (c > 5):
+        if (c > 3):
             if os.path.exists("logs/alerts/passwordSprayDetected"):
                 if os.path.getsize("logs/alerts/passwordSprayDetected") == 0:
                     f = open("logs/alerts/passwordSprayDetected","a")
@@ -55,12 +56,16 @@ def MonitorPassSprays(badlogins):
 
                     f.write(c)
                     f.write(sAMAccountNames)
+                    f.close()
+                    send_notifications("There might be a password spray incident", (f"Password Spray Detected :key:"), "#de1010")
             else:
                 f = open("logs/alerts/passwordSprayDetected","w")
                 c = "Number of attempted password sprays on accounts : " + str(c - 1)
 
                 f.write(c)
                 f.write(sAMAccountNames)
+                send_notifications("There might be a password spray incident", (f"Password Spray Detected :key:"), "#de1010")
+                f.close()
 
 
     except Exception as e:

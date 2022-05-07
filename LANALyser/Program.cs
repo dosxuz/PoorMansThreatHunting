@@ -23,6 +23,14 @@ namespace LANALyser
             string problemHelpdeskAdmin = MonitorHelpdeskAdmins();
             badlogin[] b = MonitorPasswordSprays();
             */
+            if (args.Length == 0)
+            {
+                Console.WriteLine("Enter the IP address of the server to connect to");
+                return;
+            }
+            string IP = args[0];
+            Console.WriteLine("IP : " + IP);
+
             while (true)
             {
                 admindetails ad = MonitorAdmins();
@@ -32,25 +40,25 @@ namespace LANALyser
                 badlogin[] b = MonitorPasswordSprays();
                 System.Threading.Thread.Sleep(300);
 
-                SendAdmins(ad);
+                SendAdmins(ad, IP);
                 System.Threading.Thread.Sleep(700);
 
                 if (cd.ismember == true)
                 {
-                    SendCompDetails(cd);
+                    SendCompDetails(cd, IP);
                 }
                 else
                 {
                     cd.ismember = false;
                     cd.groupname = "empty";
                     cd.compName = "empty";
-                    SendCompDetails(cd);
+                    SendCompDetails(cd, IP);
                 }
                 System.Threading.Thread.Sleep(700);
 
-                SendDomainAdmins(ad1);
+                SendDomainAdmins(ad1, IP);
                 System.Threading.Thread.Sleep(700);
-                SendProblemHelpdeskAdmin(problemHelpdeskAdmin);
+                SendProblemHelpdeskAdmin(problemHelpdeskAdmin, IP);
                 System.Threading.Thread.Sleep(700);
 
                 if (b.Count() == 0)
@@ -59,11 +67,11 @@ namespace LANALyser
                     bb[0].sAMAccountName = "empty";
                     bb[0].badPasswordTime = 0;
                     bb[0].badPwdCount = 0;
-                    SendBadLogins(bb);
+                    SendBadLogins(bb, IP);
                 }
                 else
                 {
-                    SendBadLogins(b);
+                    SendBadLogins(b, IP);
                 }
             }
         }

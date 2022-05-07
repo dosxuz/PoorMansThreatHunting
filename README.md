@@ -167,10 +167,24 @@ python3 server.py
 - It tells the number of accounts the password spray was performed against
 - The `sAMAccountName` of the accounts as well
 
+## Slack Alert Integration
+
+- Now a slack alert will be generated for each of the use cases
+- You need to add your own webhook to receive the notification on a particular channel
+- Refer to [Sending Automated slack messages](https://medium.com/@sharan.aadarsh/sending-notification-to-slack-using-python-8b71d4f622f3#:~:text=Click%20on%20Apps%20%2B%20icon%20and,on%20create%20a%20new%20channel.)
+
+![](Pictures/19.png)
+
+![](Pictures/20.png)
+
+![](Pictures/21.png)
+
 
 ## TODO:
 
-1. Implement Slack/Desktop notification for alerts
+1. ~~Implement Slack/Desktop notification for alerts~~
 2. Improve the algorithm to detect password sprays, in order reduce the number of false positives
-3. Fix occasional crashes 
-4. Improve sync between the server and client
+3. Improve sync between the server and client
+4. Fix occasional crashes 
+5. Detect local administrators by parsing the Group Policy
+6. Prevent counting same admins again
